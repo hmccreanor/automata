@@ -29,15 +29,23 @@ while True:
 
     key = chr(cv2.waitKey(1000) & 0xFF)
 
-    if key == "q":
+    if key == "x":
         break
     elif key == "a":
-        frame_coord[0] -= 1
+        if frame_coord[0] > 0:
+            frame_coord[0] -= 1
     elif key == "d":
-        frame_coord[0] += 1
+        if frame_coord[0] < canvas_size[0]:
+            frame_coord[0] += 1
     elif key == "s":
-        frame_coord[1] += 1
+        if frame_coord[1] < canvas_size[1]:
+            frame_coord[1] += 1
     elif key == "w":
-        frame_coord[1] -= 1
+        if frame_coord[1] > 0:
+            frame_coord[1] -= 1
+    elif key == "q":
+        frame_dims *= 2
+    elif key == "e":
+        frame_dims //= 2
 
 cv2.destroyAllWindows()
