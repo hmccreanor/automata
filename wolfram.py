@@ -41,7 +41,6 @@ viewer = CanvasViewer(canvas, (640, 480), [0, 0], [16, 31])
 exit = False
 
 while not exit:
-    print(row_id)
     if row_id < 16 - 1:
         canvas[row_id + 1, :] = apply_rule(30, canvas[row_id])
         row_id += 1
