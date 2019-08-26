@@ -12,6 +12,8 @@ viewer = CanvasViewer(canvas, windowSize, topLeftOfCanvasSlice, canvasSliceDimen
 exit = False
 
 while not exit:
+	canvas = np.random.randint(2, size = [y, x]) # Some other 2d matrix of the same form as before
+	viewer.canvas = canvas
 	viewer.draw()
 	exit = viewer.respondToKeys(updateInterval)
 
