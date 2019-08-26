@@ -6,9 +6,9 @@ class CanvasViewer:
     def __init__(self, canvas, window_size, frame_pos, frame_size):
         self.canvas_size = canvas.shape
         self.canvas = canvas
-        self.window_size = window_size
-        self.frame_pos = frame_pos
-        self.frame_size = frame_size
+        self.window_size = tuple(window_size)
+        self.frame_pos = np.array(frame_pos)
+        self.frame_size = np.array(frame_size)
 
     def draw(self):
         cv2.imshow("CanvasViewer", cv2.resize(self.getSlice(), self.window_size, interpolation = cv2.INTER_NEAREST))

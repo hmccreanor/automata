@@ -3,7 +3,7 @@ Right now this is just a basic automata viewer with buggy zooming in and out.
 
 ## Usage
 ```python
-from engine import CanvasViewer
+from viewer import CanvasViewer
 
 canvas = np.random.randint(2, size = [y, x]) # Some 2 dimensional matrix populated with 1s and 0s
 
