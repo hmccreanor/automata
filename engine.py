@@ -14,40 +14,43 @@ The next thing to do will be to wrap this up in a class that I can import in oth
 import cv2
 import numpy as np
 
-window_size = (640, 480)
-canvas_size = [640, 480]
+class CanvasViewer:
 
-def canvas_slice(c, top_left_coords, slice_dims):
-    return c[top_left_coords[1] : top_left_coords[1] + slice_dims[1], top_left_coords[0] : top_left_coords[0] + slice_dims[0]]
+    def __init__(self, canvas, window_size, frame_pos, frame_size):
+        self.canvas_size = canvas.shape
+        self.canvas = canvas
+        self.window_size = window_size
+        self.frame_pos = frame_pos
+        self.frame_size = frame_size
 
-frame_coord = np.array([0, 0])
-frame_dims = np.array([100, 100])
+    def draw(self):
+        cv2.imshow("CanvasViewer", cv2.resize(self.getSlice(), self.window_size, interpolation = cv2.INTER_NEAREST))
 
-cells = np.random.randint(2, size = canvas_size).astype(float)
+    def getSlice(self):
+        return self.canvas[self.frame_pos[1] : self.frame_pos[1] + self.frame_size[1], self.frame_pos[0] : self.frame_pos[0] + self.frame_size[0]]
 
-while True:
+    # Returns the boolean variable exit, which, if True, indicates that the exit key has been pressed and the simulation should terminate
+    def respondToKeys(self, t):
+        key = chr(cv2.waitKey(t) & 0xFF)
 
-    cv2.imshow("Cells", cv2.resize(canvas_slice(cells, frame_coord, frame_dims), window_size, interpolation = cv2.INTER_NEAREST))
+        if key == "x":
+            cv2.destroyAllWindows()
+            return True
+        elif key == "a":
+            if self.frame_pos[0] > 0:
+                self.frame_pos[0] -= 1
+        elif key == "d":
+            if self.frame_pos[0] < self.canvas_size[0]:
+                self.frame_pos[0] += 1
+        elif key == "s":
+            if self.frame_pos[1] < self.canvas_size[1]:
+                self.frame_pos[1] += 1
+        elif key == "w":
+            if self.frame_pos[1] > 0:
+                self.frame_pos[1] -= 1
+        elif key == "q":
+            self.frame_size *= 2
+        elif key == "e":
+            self.frame_size //= 2
 
-    key = chr(cv2.waitKey(1000) & 0xFF)
-
-    if key == "x":
-        break
-    elif key == "a":
-        if frame_coord[0] > 0:
-            frame_coord[0] -= 1
-    elif key == "d":
-        if frame_coord[0] < canvas_size[0]:
-            frame_coord[0] += 1
-    elif key == "s":
-        if frame_coord[1] < canvas_size[1]:
-            frame_coord[1] += 1
-    elif key == "w":
-        if frame_coord[1] > 0:
-            frame_coord[1] -= 1
-    elif key == "q":
-        frame_dims *= 2
-    elif key == "e":
-        frame_dims //= 2
-
-cv2.destroyAllWindows()
+        return False
