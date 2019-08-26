@@ -1,16 +1,3 @@
-'''
-Pretty basic automata engine
-Takes in a 2d matrix of 1s and 0s
-Should be able to draw matrix to screen
-Moving/scaling should also be implemented
-
-The way I plan on implementing scaling is for there to be the concept of a canvas
-Only a slice of the canvas is displayed at any given time.
-Scaling/moving across the image will just correspond to changing the parameters of our slicing function
-
-The next thing to do will be to wrap this up in a class that I can import in other modules.
-'''
-
 import cv2
 import numpy as np
 
