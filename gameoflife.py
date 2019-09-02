@@ -57,6 +57,9 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 playing = not playing
+            elif event.key == pygame.K_r:
+                state = np.zeros((48, 64))
+                playing = False
 
         if not playing:
             if event.type == pygame.MOUSEBUTTONDOWN:
